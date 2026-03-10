@@ -1,5 +1,6 @@
 package com.testdata.tests;
 
+import com.testdata.PatientDataGenerateApplication;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +18,9 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+        classes = PatientDataGenerateApplication.class,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestDataServiceTest extends AbstractTestNGSpringContextTests {
 
     @LocalServerPort
