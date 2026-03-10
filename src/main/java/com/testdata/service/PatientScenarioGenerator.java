@@ -23,4 +23,18 @@ public class PatientScenarioGenerator {
         patient.setBedNumber("NA");
         return patient;
     }
+
+    public Patient admittedPatient(Patient patient) {
+        patient.setStatus("ADMITTED");
+        patient.setDepartment("WARD");
+        patient.setBedNumber("W-" + faker.number().numberBetween(1, 100));
+        return patient;
+    }
+
+    public Patient icuPatient(Patient patient) {
+        patient.setStatus("ICU");
+        patient.setDepartment("ICU");
+        patient.setBedNumber("ICU-" + faker.number().numberBetween(1, 20));
+        return patient;
+    }
 }

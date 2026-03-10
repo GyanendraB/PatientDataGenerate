@@ -30,6 +30,20 @@ public class PatientService {
         return patientRepository.save(patient);
     }
 
+    @Transactional
+    public Patient createAdmittedPatient() {
+        Patient patient = createRegisteredPatient();
+        patientScenarioGenerator.admittedPatient(patient);
+        return patientRepository.save(patient);
+    }
+
+    @Transactional
+    public Patient createICUPatient() {
+        Patient patient = createRegisteredPatient();
+        patientScenarioGenerator.icuPatient(patient);
+        return patientRepository.save(patient);
+    }
+
     public List<Patient> findAll() {
         return patientRepository.findAll();
     }
