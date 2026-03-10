@@ -15,10 +15,12 @@ public class Patient {
     private String name;
     private String dob;
     private String phone;
+
     @Column(unique = true)
     private String ssn;
 
     private String status;
     private String department;
     private String bedNumber;
+    private String testRunId;
 }

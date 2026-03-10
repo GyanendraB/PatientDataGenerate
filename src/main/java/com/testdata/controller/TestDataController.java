@@ -1,5 +1,8 @@
 package com.testdata.controller;
 
+import com.testdata.dto.BulkScenarioRequest;
+import com.testdata.dto.FullAdmissionResponse;
+import com.testdata.dto.StatsResponse;
 import com.testdata.model.Patient;
 import com.testdata.service.PatientService;
 import java.util.List;
@@ -17,8 +20,38 @@ public class TestDataController {
     }
 
     @PostMapping("/patients/registered")
-    public Patient createRegisteredPatient() {
-        return patientService.createRegisteredPatient();
+    public Patient createRegisteredPatient(@RequestParam(required = false) String testRunId) {
+        return patientService.createRegisteredPatient(testRunId);
+    }
+
+    @PostMapping("/patients/admitted")
+    public Patient createAdmittedPatient(@RequestParam(required = false) String testRunId) {
+        return patientService.createPatientByStatus("admitted", testRunId);
+    }
+
+    @PostMapping("/patients/icu")
+    public Patient createIcuPatient(@RequestParam(required = false) String testRunId) {
+        return patientService.createPatientByStatus("icu", testRunId);
+    }
+
+    @PostMapping("/patients/discharged")
+    public Patient createDischargedPatient(@RequestParam(required = false) String testRunId) {
+        return patientService.createPatientByStatus("discharged", testRunId);
+    }
+
+    @PostMapping("/scenarios/full-admission")
+    public FullAdmissionResponse createFullAdmissionScenario(@RequestParam(required = false) String testRunId) {
+        return patientService.createFullAdmissionScenario(testRunId);
+    }
+
+    @PostMapping("/scenarios/bulk")
+    public List<Patient> createBulkScenarioPatients(@RequestBody BulkScenarioRequest request) {
+        return patientService.createBulkScenarios(request);
+    }
+
+    @GetMapping("/stats")
+    public StatsResponse getStats() {
+        return patientService.getStats();
     }
 
     @GetMapping("/patients")
@@ -31,8 +64,16 @@ public class TestDataController {
         patientService.cleanupPatients();
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/reset/{testRunId}")
+    public ResponseEntity<Void> cleanupByTestRun(@PathVariable String testRunId) {
+        patientService.cleanupByTestRun(testRunId);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/patients/bulk")
-    public List<Patient> createBulkPatients(@RequestParam int count) {
-        return patientService.createBulkPatients(count);
+    public List<Patient> createBulkPatients(@RequestParam int count,
+                                            @RequestParam(required = false) String testRunId) {
+        return patientService.createBulkPatients(count, testRunId);
     }
 }

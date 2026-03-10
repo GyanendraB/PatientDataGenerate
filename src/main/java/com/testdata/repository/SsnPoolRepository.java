@@ -9,4 +9,6 @@ public interface SsnPoolRepository extends JpaRepository<SsnPool, String> {
     Optional<SsnPool> findFirstByUsedFalse();
 
     Optional<SsnPool> findTopByOrderBySsnDesc();
+
+    long countByUsed(boolean used);
 }
