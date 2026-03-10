@@ -1,6 +1,6 @@
 package com.testdata.config;
 
-import com.testdata.model.ssnPool;
+import com.testdata.model.SsnPool;
 import com.testdata.repository.SsnPoolRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,7 @@ public class DataInitializer {
 
                     String ssn = String.format("900-11-%04d", i);
 
-                    repo.save(new ssnPool(ssn,false));
+                    repo.save(new SsnPool(ssn,false));
                 }
 
                 System.out.println("Loaded 1000 SSNs into pool");
