@@ -4,11 +4,7 @@ import com.testdata.model.Patient;
 import com.testdata.service.PatientService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/testdata")
@@ -34,5 +30,9 @@ public class TestDataController {
     public ResponseEntity<Void> cleanupPatients() {
         patientService.cleanupPatients();
         return ResponseEntity.noContent().build();
+    }
+    @PostMapping("/patients/bulk")
+    public List<Patient> createBulkPatients(@RequestParam int count) {
+        return patientService.createBulkPatients(count);
     }
 }

@@ -1,5 +1,6 @@
 package com.testdata.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -14,6 +15,7 @@ public class Patient {
     private String name;
     private String dob;
     private String phone;
+    @Column(unique = true)
     private String ssn;
 
     private String status;

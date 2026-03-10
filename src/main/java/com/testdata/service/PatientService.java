@@ -2,6 +2,8 @@ package com.testdata.service;
 
 import com.testdata.model.Patient;
 import com.testdata.repository.PatientRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +33,16 @@ public class PatientService {
     public List<Patient> findAll() {
         return patientRepository.findAll();
     }
+    public List<Patient> createBulkPatients(int count) {
 
+        List<Patient> patients = new ArrayList<>();
+
+        for(int i = 0; i < count; i++) {
+            patients.add(createRegisteredPatient());
+        }
+
+        return patients;
+    }
     @Transactional
     public void cleanupPatients() {
         patientRepository.deleteAllInBatch();
