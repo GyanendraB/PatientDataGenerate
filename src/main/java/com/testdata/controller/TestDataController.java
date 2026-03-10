@@ -1,28 +1,38 @@
 package com.testdata.controller;
 
-import com.testdata.generator.PatientScenarioGenerator;
 import com.testdata.model.Patient;
+import com.testdata.service.PatientService;
+import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/testdata")
 public class TestDataController {
 
-    @GetMapping("/testdata/patient/registered")
-    public Patient registeredPatient() {
+    private final PatientService patientService;
 
-        return PatientScenarioGenerator.registeredPatient();
+    public TestDataController(PatientService patientService) {
+        this.patientService = patientService;
     }
 
-    @GetMapping("/testdata/patient/admitted")
-    public Patient admittedPatient() {
-
-        return PatientScenarioGenerator.admittedPatient();
+    @PostMapping("/patients/registered")
+    public Patient createRegisteredPatient() {
+        return patientService.createRegisteredPatient();
     }
 
-    @GetMapping("/testdata/patient/icu")
-    public Patient icuPatient() {
+    @GetMapping("/patients")
+    public List<Patient> getPatients() {
+        return patientService.findAll();
+    }
 
-        return PatientScenarioGenerator.icuPatient();
+    @DeleteMapping("/cleanup/patients")
+    public ResponseEntity<Void> cleanupPatients() {
+        patientService.cleanupPatients();
+        return ResponseEntity.noContent().build();
     }
 }
