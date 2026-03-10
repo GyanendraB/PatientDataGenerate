@@ -22,7 +22,16 @@ public class PatientGenerator {
         String ssn = String.format("%03d-%02d-%04d", randomInt(100, 999), randomInt(10, 99), randomInt(1000, 9999));
         String patientId = "P-" + UUID.randomUUID().toString().substring(0, 6);
 
-        return new Patient(patientId, name, dob, phone, ssn, null, null, null);
+        Patient patient = new Patient();
+        patient.setPatientId(patientId);
+        patient.setName(name);
+        patient.setDob(dob);
+        patient.setPhone(phone);
+        patient.setSsn(ssn);
+        patient.setStatus(null);
+        patient.setDepartment(null);
+        patient.setBedNumber(null);
+        return patient;
     }
 
     private static String randomDob() {
