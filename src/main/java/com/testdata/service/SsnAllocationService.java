@@ -1,6 +1,6 @@
 package com.testdata.service;
 
-import com.testdata.model.SsnPool;
+import com.testdata.model.ssnPool;
 import com.testdata.repository.SsnPoolRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ public class SsnAllocationService {
 
     @Transactional
     public String getAvailableSSN() {
-        SsnPool ssn = ssnPoolRepository.findFirstByUsedFalse()
+        ssnPool ssn = ssnPoolRepository.findFirstByUsedFalse()
                 .orElseThrow(() -> new IllegalStateException("No available SSN in pool"));
 
         ssn.setUsed(true);

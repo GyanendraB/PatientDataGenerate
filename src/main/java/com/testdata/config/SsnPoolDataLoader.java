@@ -1,6 +1,6 @@
 package com.testdata.config;
 
-import com.testdata.model.SsnPool;
+import com.testdata.model.ssnPool;
 import com.testdata.repository.SsnPoolRepository;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +23,7 @@ public class SsnPoolDataLoader implements CommandLineRunner {
 
         List<String> defaultSsns = List.of("900-11-0001", "900-11-0002", "900-11-0003");
         defaultSsns.forEach(value -> {
-            SsnPool pool = new SsnPool();
+            ssnPool pool = new ssnPool();
             pool.setSsn(value);
             pool.setUsed(false);
             ssnPoolRepository.save(pool);
