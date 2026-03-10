@@ -2,6 +2,7 @@ package com.testdata.service;
 
 import com.testdata.model.SsnPool;
 import com.testdata.repository.SsnPoolRepository;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.stereotype.Service;
@@ -74,5 +75,23 @@ public class SsnAllocationService {
     @Transactional
     public void markAllUnused() {
         ssnPoolRepository.findAll().forEach(item -> item.setUsed(false));
+    }
+
+    @Transactional
+    public void markUnused(List<String> ssns) {
+        if (ssns.isEmpty()) {
+            return;
+        }
+        List<SsnPool> records = ssnPoolRepository.findAllById(ssns);
+        records.forEach(record -> record.setUsed(false));
+        ssnPoolRepository.saveAll(records);
+    }
+
+    public long total() {
+        return ssnPoolRepository.count();
+    }
+
+    public long used() {
+        return ssnPoolRepository.countByUsed(true);
     }
 }
