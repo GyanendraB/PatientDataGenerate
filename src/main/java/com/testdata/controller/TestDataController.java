@@ -54,16 +54,6 @@ public class TestDataController {
         return patientService.getStats();
     }
 
-    @PostMapping("/patients/admitted")
-    public Patient createAdmittedPatient() {
-        return patientService.createAdmittedPatient();
-    }
-
-    @PostMapping("/patients/icu")
-    public Patient createICUPatient() {
-        return patientService.createICUPatient();
-    }
-
     @GetMapping("/patients")
     public List<Patient> getPatients() {
         return patientService.findAll();
